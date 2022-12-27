@@ -24,12 +24,14 @@ public class GameScreen {
         grid.setLayout(new GridLayout(5, 9));
 
 
-
         for (int i = 0; i < 45; i++) {
-            ImageIcon img = new ImageIcon("");
+            ImageIcon img;
             JButton b = new JButton();
-            if (i % 2 == 0)  img = new ImageIcon("images/tiles/darkGreenTile.PNG");
-            else  img = new ImageIcon("images/tiles/greenTile.PNG");
+            if(i % 2 == 0){
+                img = new ImageIcon("src/images/darkGreenTile.png");
+            }else{
+                img = new ImageIcon("src/images/lightGreenTile.png");
+            }
             b.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
             b.setIcon(img);
             grid.add(b);
@@ -55,9 +57,4 @@ public class GameScreen {
         f.setVisible(true);
     }
 
-    private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
-        Image img = icon.getImage();
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight, java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
-    }
 }
