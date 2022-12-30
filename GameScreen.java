@@ -1,60 +1,49 @@
 import javax.swing.*;
-import java.awt.*;
 
-public class GameScreen {
+
+public class GameScreen extends JFrame {
+
+    enum PlantType {
+        None,
+        Sunflower,
+        Peashooter,
+        FreezePeashooter
+    }
+
+    //PlantType activePlantingBrush = PlantType.None;
+
+    public GameScreen() {
+        setSize(1012, 785);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        JLabel sun = new JLabel("SUN");
+        sun.setLocation(37, 80);
+        sun.setSize(60, 20);
+
+        GamePanel gp = new GamePanel(sun);
+        gp.setLocation(0, 0);
+        getLayeredPane().add(gp, new Integer(0));
+
+        PlantCard peashooter = new PlantCard(new ImageIcon(this.getClass().getResource("images/cards/peashooterCard.png")).getImage());
+        peashooter.setLocation(100, 8);
+        getLayeredPane().add(peashooter, new Integer(3));
+
+
+        getLayeredPane().add(sun, new Integer(2));
+        setResizable(false);
+        setVisible(true);
+    }
+
+    static GameScreen gw;
+
+    public static void begin() {
+        gw.dispose();
+        gw = new GameScreen();
+    }
+
     public static void main(String[] args) {
-        JFrame f = new JFrame("PVZ");
-        f.setSize(600, 500);
-
-        Container cont = f.getContentPane();
-        cont.setLayout(new BorderLayout());
-
-        JPanel top = new JPanel();
-        top.setLayout(new FlowLayout());
-
-        JLabel image = new JLabel(new ImageIcon("src/images/java.png"));
-        top.add(image);
-
-        JLabel text = new JLabel("PVZ");
-        top.add(text);
-
-        cont.add(top, BorderLayout.NORTH);
-
-        JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(5, 9));
-
-
-        for (int i = 0; i < 45; i++) {
-            ImageIcon img;
-            JButton b = new JButton();
-            if(i % 2 == 0){
-                img = new ImageIcon("src/images/darkGreenTile.png");
-            }else{
-                img = new ImageIcon("src/images/lightGreenTile.png");
-            }
-            b.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            b.setIcon(img);
-            grid.add(b);
-        }
-
-        cont.add(grid, BorderLayout.CENTER);
-
-        JPanel bottomNav = new JPanel();
-        GridLayout bottomGrid = new GridLayout(1, 3);
-        bottomNav.setLayout(bottomGrid);
-
-        JButton b1 = new JButton("aaaa");
-        JButton b2 = new JButton("bbbb");
-        JButton b3 = new JButton("cccc");
-
-        bottomNav.add(b1);
-        bottomNav.add(b2);
-        bottomNav.add(b3);
-
-        cont.add(bottomNav, BorderLayout.SOUTH);
-
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
+        gw = new GameScreen();
     }
 
 }
