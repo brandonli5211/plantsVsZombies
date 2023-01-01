@@ -9,20 +9,18 @@ import java.util.Objects;
 
 public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
-    private Image bgImage;
-    private ArrayList<ArrayList<Pea>> peaLanes;
+    private final Image bgImage;
+    private final ArrayList<ArrayList<Pea>> peaLanes;
 
-    private Collider[] colliders;
+    private final Collider[] colliders;
 
-    private Timer redrawTimer;
-
-    private Image peashooterImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/peashooterIdle/peashooterIdle.gif"))).getImage();
-    private Image peaImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/pea.png"))).getImage();
+    private final Image peashooterImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/peashooterIdle/peashooterIdle.gif"))).getImage();
+    private final Image peaImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/pea.png"))).getImage();
 
     private int mouseX, mouseY;
 
     public GamePanel(JLabel sunScoreboard) {
-        redrawTimer = new Timer(25, (ActionEvent e) -> {
+        Timer redrawTimer = new Timer(25, (ActionEvent e) -> {
             repaint();
         });
         redrawTimer.start();
@@ -44,10 +42,10 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             a.setLocation(44 + (i % 9) * 100, 109 + (i / 9) * 120);
             a.setAction(new PlantActionListener((i % 9), (i / 9)));
             colliders[i] = a;
-            add(a, new Integer(0));
+            add(a, 0);
         }
 
-        bgImage = new ImageIcon(this.getClass().getResource("images/mainBG.png")).getImage();
+        bgImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/mainBG.png"))).getImage();
     }
 
 
@@ -83,7 +81,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             }
         }
 
-        //draw plants
+        //draw peas
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < peaLanes.get(i).size(); j++) {
                 Pea p = peaLanes.get(i).get(j);

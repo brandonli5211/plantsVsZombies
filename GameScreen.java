@@ -8,7 +8,6 @@ public class GameScreen extends JFrame {
         None,
         Sunflower,
         Peashooter,
-        FreezePeashooter
     }
 
     //PlantType activePlantingBrush = PlantType.None;
@@ -24,11 +23,17 @@ public class GameScreen extends JFrame {
 
         GamePanel gp = new GamePanel(sun);
         gp.setLocation(0, 0);
-        getLayeredPane().add(gp, new Integer(0));
+        getLayeredPane().add(gp, 0);
 
-        PlantCard peashooter = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
-        peashooter.setLocation(100, 8);
-        getLayeredPane().add(peashooter, 0);
+        PlantCard peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
+        peashooterCard.setLocation(100, 8);
+        getLayeredPane().add(peashooterCard, 0);
+
+        PlantCard sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/sunflowerCard.png"))).getImage());
+        sunflowerCard.setLocation(170, 8);
+        getLayeredPane().add(sunflowerCard, 0);
+
+
 
         getLayeredPane().add(sun, 0);
         setResizable(false);
