@@ -12,7 +12,7 @@ public class Pea {
         posX = startX;
     }
 
-    public void advance() {
+    public void move() {
         Rectangle pRect = new Rectangle(posX, 130 + myLane * 120, 28, 28);
         if (posX > 2000) {
             gp.getPeaLanes().get(myLane).remove(this);

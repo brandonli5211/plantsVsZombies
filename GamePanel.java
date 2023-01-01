@@ -66,15 +66,6 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         }
     }
 
-    private void advance() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < peaLanes.get(i).size(); j++) {
-                Pea p = peaLanes.get(i).get(j);
-                p.advance();
-            }
-
-        }
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -89,6 +80,14 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
                 if (p instanceof Peashooter) {
                     g.drawImage(peashooterImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
                 }
+            }
+        }
+
+        //draw plants
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < peaLanes.get(i).size(); j++) {
+                Pea p = peaLanes.get(i).get(j);
+                p.move();
             }
         }
 
