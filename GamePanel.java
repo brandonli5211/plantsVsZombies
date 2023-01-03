@@ -53,7 +53,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         generateTimer.start();
 
         activeSuns = new ArrayList<>();
-        Timer sunProducer = new Timer(7500, (ActionEvent e) -> {
+        Timer sunProducer = new Timer(5000, (ActionEvent e) -> {
             Random rand = new Random();
             Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
             activeSuns.add(sun);

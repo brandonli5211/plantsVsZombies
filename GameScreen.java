@@ -1,6 +1,9 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -54,9 +57,21 @@ public class GameScreen extends JFrame {
         gw = new GameScreen();
     }
 
-    public static void main(String[] args) {
-        MusicPlayer play = new MusicPlayer();
-        play.playMusic("music/grassWalk.wav");
+    public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+
+        try
+        {
+            MusicPlayer music = new MusicPlayer("music/grassWalk.wav");
+            music.resetAudioStream();
+        }
+
+        catch (Exception ex)
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+
+        }
+
         gw = new GameScreen();
     }
 
