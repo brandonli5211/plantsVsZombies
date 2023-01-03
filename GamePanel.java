@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
@@ -14,16 +15,51 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     private final Collider[] colliders;
 
-    private final Image peashooterImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/peashooterIdle/peashooterIdle.gif"))).getImage();
+    private final Image peashooterImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterIdle.gif"))).getImage();
     private final Image peaImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/pea.png"))).getImage();
 
-    private int mouseX, mouseY;
+    private final Image sunflowerImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/sunflowerIdle.gif"))).getImage();
+
+    private JLabel sunScoreBoard;
+    private ArrayList<Sun> activeSuns;
+    private int sunScore;
+
+    public int getSunScore() {
+        return sunScore;
+    }
+
+    public void setSunScore(int sunScore) {
+        this.sunScore = sunScore;
+        sunScoreBoard.setText(String.valueOf(sunScore));
+    }
+
+    private GameScreen.PlantType currentPlantingBrush = GameScreen.PlantType.None;
 
     public GamePanel(JLabel sunScoreboard) {
+        setSize(1000, 752);
+        setLayout(null);
+        addMouseMotionListener(this);
+        this.sunScoreBoard = sunScoreboard;
+        setSunScore(150);
+
+
+
         Timer redrawTimer = new Timer(25, (ActionEvent e) -> {
             repaint();
         });
         redrawTimer.start();
+
+        Timer generateTimer = new Timer(60, (ActionEvent e) -> generate());
+        generateTimer.start();
+
+        activeSuns = new ArrayList<>();
+        Timer sunProducer = new Timer(5000, (ActionEvent e) -> {
+            Random rand = new Random();
+            Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
+            activeSuns.add(sun);
+            add(sun, 1);
+        });
+        sunProducer.start();
 
         peaLanes = new ArrayList<>();
         peaLanes.add(new ArrayList<>()); //lane 1
@@ -32,9 +68,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         peaLanes.add(new ArrayList<>()); //lane 4
         peaLanes.add(new ArrayList<>()); //lane 5
 
-        setSize(1000, 752);
-        setLayout(null);
-        addMouseMotionListener(this);
+
 
         colliders = new Collider[45];
         for (int i = 0; i < 45; i++) {
@@ -60,15 +94,45 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            colliders[x + y * 9].setPlant(new Peashooter(GamePanel.this, x, y));
+            if (currentPlantingBrush == GameScreen.PlantType.Sunflower) {
+                if (getSunScore() >= 50) {
+                    colliders[x + y * 9].setPlant(new Sunflower(GamePanel.this, x, y));
+                    setSunScore(getSunScore() - 50);
+                }
+            }
+            if (currentPlantingBrush == GameScreen.PlantType.Peashooter) {
+                if (getSunScore() >= 100) {
+                    colliders[x + y * 9].setPlant(new Peashooter(GamePanel.this, x, y));
+                    setSunScore(getSunScore() - 100);
+                }
+            }
+
+            currentPlantingBrush = GameScreen.PlantType.None;
         }
     }
 
 
+    private void generate() {
+        //draw peas
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < peaLanes.get(i).size(); j++) {
+                Pea p = peaLanes.get(i).get(j);
+                p.move();
+            }
+        }
+
+        //produce sun
+        for (int i = 0; i < activeSuns.size(); i++) {
+            activeSuns.get(i).create();
+        }
+
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bgImage, 0, 0, null);
+
+
 
         //Draw Plants
         for (int i = 0; i < 45; i++) {
@@ -78,14 +142,9 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
                 if (p instanceof Peashooter) {
                     g.drawImage(peashooterImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
                 }
-            }
-        }
-
-        //draw peas
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < peaLanes.get(i).size(); j++) {
-                Pea p = peaLanes.get(i).get(j);
-                p.move();
+                if (p instanceof Sunflower) {
+                    g.drawImage(sunflowerImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                }
             }
         }
 
@@ -99,6 +158,13 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         }
     }
 
+    public void setCurrentPlantingBrush(GameScreen.PlantType currentPlantingBrush) {
+        this.currentPlantingBrush = currentPlantingBrush;
+    }
+
+    public ArrayList<Sun> getActiveSuns() {
+        return activeSuns;
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -107,8 +173,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
+
     }
 
     public ArrayList<ArrayList<Pea>> getPeaLanes() {

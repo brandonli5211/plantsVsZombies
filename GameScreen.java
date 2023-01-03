@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.Objects;
 
 
@@ -26,10 +27,12 @@ public class GameScreen extends JFrame {
         getLayeredPane().add(gp, 0);
 
         PlantCard peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
+        peashooterCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Peashooter));
         peashooterCard.setLocation(100, 8);
         getLayeredPane().add(peashooterCard, 0);
 
         PlantCard sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/sunflowerCard.png"))).getImage());
+        sunflowerCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Sunflower));
         sunflowerCard.setLocation(170, 8);
         getLayeredPane().add(sunflowerCard, 0);
 
