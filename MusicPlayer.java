@@ -34,7 +34,7 @@ public class MusicPlayer
         playList.add("music/brainiacManiac.wav");
         playList.add("music/ultimateBattle.wav");
         playList.add("music/zenGarden.wav");
-        int curr = (int)(Math.random() * 3) + 1;
+        int curr = (int)(Math.random() * 4);
         this.filePath = playList.get(curr);
 
         // create AudioInputStream object
