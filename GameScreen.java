@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Objects;
 
@@ -18,13 +19,12 @@ public class GameScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
 
-        JLabel sun = new JLabel("sun");
-        sun.setLocation(37, 80);
+        JLabel sun = new JLabel();
+        sun.setForeground(Color.white);
+        sun.setFont(new Font("Futura", Font.BOLD, 13));
+        sun.setLocation(50, 80);
         sun.setSize(60, 20);
 
-        JLabel sunBar = new JLabel(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/sunBar.png"))));
-        sun.setLocation(37, 80);
-        sun.setSize(60, 20);
 
         GamePanel gp = new GamePanel(sun);
         gp.setLocation(0, 0);
@@ -41,7 +41,7 @@ public class GameScreen extends JFrame {
         peashooterCard.setLocation(175, 8);
         getLayeredPane().add(peashooterCard, 0);
 
-        getLayeredPane().add(sunBar, 1);
+
         getLayeredPane().add(sun, 0);
         setResizable(false);
         setVisible(true);
