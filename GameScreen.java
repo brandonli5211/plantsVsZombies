@@ -61,7 +61,7 @@ public class GameScreen extends JFrame {
 
         try
         {
-            MusicPlayer music = new MusicPlayer("music/grassWalk.wav");
+            MusicPlayer music = new MusicPlayer();
             music.resetAudioStream();
         }
 
