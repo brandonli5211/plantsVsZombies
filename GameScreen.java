@@ -18,7 +18,11 @@ public class GameScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
 
-        JLabel sun = new JLabel("SUN");
+        JLabel sun = new JLabel("sun");
+        sun.setLocation(37, 80);
+        sun.setSize(60, 20);
+
+        JLabel sunBar = new JLabel(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/sunBar.png"))));
         sun.setLocation(37, 80);
         sun.setSize(60, 20);
 
@@ -26,18 +30,18 @@ public class GameScreen extends JFrame {
         gp.setLocation(0, 0);
         getLayeredPane().add(gp, 0);
 
-        PlantCard peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
-        peashooterCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Peashooter));
-        peashooterCard.setLocation(100, 8);
-        getLayeredPane().add(peashooterCard, 0);
 
         PlantCard sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/sunflowerCard.png"))).getImage());
         sunflowerCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Sunflower));
-        sunflowerCard.setLocation(170, 8);
+        sunflowerCard.setLocation(110, 8);
         getLayeredPane().add(sunflowerCard, 0);
 
+        PlantCard peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
+        peashooterCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Peashooter));
+        peashooterCard.setLocation(175, 8);
+        getLayeredPane().add(peashooterCard, 0);
 
-
+        getLayeredPane().add(sunBar, 1);
         getLayeredPane().add(sun, 0);
         setResizable(false);
         setVisible(true);

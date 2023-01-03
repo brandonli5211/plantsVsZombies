@@ -53,7 +53,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         generateTimer.start();
 
         activeSuns = new ArrayList<>();
-        Timer sunProducer = new Timer(5000, (ActionEvent e) -> {
+        Timer sunProducer = new Timer(7500, (ActionEvent e) -> {
             Random rand = new Random();
             Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
             activeSuns.add(sun);
@@ -113,14 +113,6 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
 
     private void generate() {
-        //draw peas
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < peaLanes.get(i).size(); j++) {
-                Pea p = peaLanes.get(i).get(j);
-                p.move();
-            }
-        }
-
         //produce sun
         for (int i = 0; i < activeSuns.size(); i++) {
             activeSuns.get(i).create();
@@ -132,9 +124,15 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         super.paintComponent(g);
         g.drawImage(bgImage, 0, 0, null);
 
+        //draw peas
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < peaLanes.get(i).size(); j++) {
+                Pea p = peaLanes.get(i).get(j);
+                p.move();
+            }
+        }
 
-
-        //Draw Plants
+        //draw plants
         for (int i = 0; i < 45; i++) {
             Collider c = colliders[i];
             if (c.assignedPlant != null) {
