@@ -34,15 +34,7 @@ public class GameScreen extends JFrame {
         getLayeredPane().add(gp, 0);
 
 
-        PlantCard sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/sunflowerCard.png"))).getImage());
-        sunflowerCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Sunflower));
-        sunflowerCard.setLocation(110, 8);
-        getLayeredPane().add(sunflowerCard, 0);
 
-        PlantCard peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
-        peashooterCard.setAction((ActionEvent e) -> gp.setCurrentPlantingBrush(PlantType.Peashooter));
-        peashooterCard.setLocation(175, 8);
-        getLayeredPane().add(peashooterCard, 0);
 
 
         getLayeredPane().add(sun, 0);
@@ -67,7 +59,7 @@ public class GameScreen extends JFrame {
 
         catch (Exception ex)
         {
-            System.out.println("Error with playing sound.");
+            System.out.println("Error with playing sound. (check for correct path)");
             ex.printStackTrace();
 
         }

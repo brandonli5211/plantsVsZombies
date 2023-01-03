@@ -124,6 +124,26 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         super.paintComponent(g);
         g.drawImage(bgImage, 0, 0, null);
 
+        PlantCard sunflowerCard;
+        if (this.getSunScore() < 50){
+            sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/disabledSunflowerCard.png"))).getImage());
+        }else{
+            sunflowerCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/sunflowerCard.png"))).getImage());
+        }
+        sunflowerCard.setAction((ActionEvent e) -> this.setCurrentPlantingBrush(GameScreen.PlantType.Sunflower));
+        sunflowerCard.setLocation(115, 8);
+        add(sunflowerCard, 0);
+
+        PlantCard peashooterCard;
+        if (this.getSunScore() < 100){
+            peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/disabledPeashooterCard.png"))).getImage());
+        }else{
+            peashooterCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/peashooterCard.png"))).getImage());
+        }
+        peashooterCard.setAction((ActionEvent e) -> this.setCurrentPlantingBrush(GameScreen.PlantType.Peashooter));
+        peashooterCard.setLocation(185, 8);
+        add(peashooterCard, 0);
+
         //draw peas
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < peaLanes.get(i).size(); j++) {
