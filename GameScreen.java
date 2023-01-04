@@ -34,9 +34,6 @@ public class GameScreen extends JFrame {
         getLayeredPane().add(gp, 0);
 
 
-
-
-
         getLayeredPane().add(sun, 0);
         setResizable(false);
         setVisible(true);
@@ -51,14 +48,10 @@ public class GameScreen extends JFrame {
 
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
 
-        try
-        {
+        try {
             MusicPlayer music = new MusicPlayer();
             music.resetAudioStream();
-        }
-
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("Error with playing sound. (check for correct path)");
             ex.printStackTrace();
 
