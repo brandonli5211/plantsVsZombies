@@ -15,10 +15,11 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     private final Collider[] colliders;
 
-    private final Image peashooterImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterIdle.gif"))).getImage();
+    private final Image peashooterIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterIdle.gif"))).getImage();
+    private final Image peashooterShootingAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterShooting.gif"))).getImage();
     private final Image peaImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/pea.png"))).getImage();
 
-    private final Image sunflowerImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/sunflowerIdle.gif"))).getImage();
+    private final Image sunflowerIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/sunflowerIdle.gif"))).getImage();
 
     private JLabel sunScoreBoard;
     private ArrayList<Sun> activeSuns;
@@ -158,10 +159,15 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             if (c.assignedPlant != null) {
                 Plant p = c.assignedPlant;
                 if (p instanceof Peashooter) {
-                    g.drawImage(peashooterImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                    if(((Peashooter) p).isShooting()){
+                        g.drawImage(peashooterShootingAnim, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                    }else{
+                        g.drawImage(peashooterIdleAnim, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                    }
+
                 }
                 if (p instanceof Sunflower) {
-                    g.drawImage(sunflowerImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                    g.drawImage(sunflowerIdleAnim, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
                 }
             }
         }
