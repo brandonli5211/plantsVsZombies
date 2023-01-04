@@ -1,10 +1,7 @@
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class GameScreen extends JFrame {
@@ -46,7 +43,7 @@ public class GameScreen extends JFrame {
         gw = new GameScreen();
     }
 
-    public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public static void main(String[] args){
 
         try {
             MusicPlayer music = new MusicPlayer();

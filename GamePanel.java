@@ -95,13 +95,13 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (currentPlantingBrush == GameScreen.PlantType.Sunflower) {
-                if (getSunScore() >= 50) {
+                if (getSunScore() >= 50  && colliders[x + y * 9].getPlant() == null) {
                     colliders[x + y * 9].setPlant(new Sunflower(GamePanel.this, x, y));
                     setSunScore(getSunScore() - 50);
                 }
             }
             if (currentPlantingBrush == GameScreen.PlantType.Peashooter) {
-                if (getSunScore() >= 100) {
+                if (getSunScore() >= 100  && colliders[x + y * 9].getPlant() == null) {
                     colliders[x + y * 9].setPlant(new Peashooter(GamePanel.this, x, y));
                     setSunScore(getSunScore() - 100);
                 }
