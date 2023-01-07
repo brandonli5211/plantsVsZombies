@@ -21,7 +21,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     private final Image sunflowerIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/sunflowerIdle.gif"))).getImage();
 
-    private Image wallnutImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/wallnutIdle.png"))).getImage();
+    private Image wallnutImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/wallnutIdle.gif"))).getImage();
 
     private JLabel sunScoreBoard;
     private ArrayList<Sun> activeSuns;
@@ -60,7 +60,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         generateTimer.start();
 
         activeSuns = new ArrayList<>();
-        Timer sunProducer = new Timer(((int)(Math.random() * 3) + 1) * 4500, (ActionEvent e) -> {
+        Timer sunProducer = new Timer(((int)(Math.random() * 3) + 1) * 4000, (ActionEvent e) -> {
             Random rand = new Random();
             Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
             activeSuns.add(sun);
@@ -68,7 +68,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         });
         sunProducer.start();
 
-        Timer zombieSpawner = new Timer( (int)((Math.random() * 2) + 1) * 5000 , (ActionEvent e) -> {
+        Timer zombieSpawner = new Timer( (int)((Math.random() * 2) + 1) * 7500 , (ActionEvent e) -> {
             int lane = (int)(Math.random() * 5);
             Zombie zombie = new Zombie(this, lane);
             activeZombies.get(lane).add(zombie);
@@ -133,7 +133,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
             if (currentPlantingBrush == GameScreen.PlantType.Wallnut) {
                 if (getSunScore() >= 50) {
-                    colliders[x + y * 9].setPlant(new Wallnut(GamePanel.this, x, y, 400));
+                    colliders[x + y * 9].setPlant(new Wallnut(GamePanel.this, x, y, 1000));
                     setSunScore(getSunScore() - 50);
                 }
             }
@@ -155,8 +155,6 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
                 z.create();
             }
         }
-
-
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -210,6 +208,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             Collider c = colliders[i];
             if (c.assignedPlant != null) {
                 Plant p = c.assignedPlant;
+                g.drawString(Integer.toString(p.getHealth()), 69 + (i % 9) * 104, 129 + (i / 9) * 115);
                 if (p instanceof Peashooter) {
                     if(((Peashooter) p).isShooting()){
                         g.drawImage(peashooterShootingAnim, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);

@@ -34,10 +34,10 @@ public class Zombie extends JPanel {
             if (xCord < 10) {
                 JOptionPane.showMessageDialog(gp,"The zombies ate your brain!! ggs");
             } else {
-                xCord--;
+                xCord-= 0.7;
             }
         }else{
-            plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 5);
+            plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 3);
             if (plantInMyLane.assignedPlant.getHealth() < 0) {
                 plantInMyLane.removePlant();
             }
