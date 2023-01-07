@@ -15,15 +15,19 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     private final Collider[] colliders;
 
-    private final Image peashooterIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterIdle.gif"))).getImage();
-    private final Image peashooterShootingAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/peashooterShooting.gif"))).getImage();
+    private final Image peashooterIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/peashooterIdle.gif"))).getImage();
+    private final Image peashooterShootingAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/peashooterShooting.gif"))).getImage();
     private final Image peaImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/pea.png"))).getImage();
 
-    private final Image sunflowerIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/plantAnimations/sunflowerIdle.gif"))).getImage();
+    private final Image sunflowerIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/sunflowerIdle.gif"))).getImage();
 
     private JLabel sunScoreBoard;
     private ArrayList<Sun> activeSuns;
     private int sunScore;
+
+
+    private ArrayList<ArrayList<Zombie>> activeZombies;
+    private final Image zombieWalkingAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/zombieWalking.gif"))).getImage();
 
     public int getSunScore() {
         return sunScore;
@@ -54,13 +58,23 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         generateTimer.start();
 
         activeSuns = new ArrayList<>();
-        Timer sunProducer = new Timer((int)(Math.random() * 3) + 8000 , (ActionEvent e) -> {
+        Timer sunProducer = new Timer(((int)(Math.random() * 3) + 1) * 3000, (ActionEvent e) -> {
             Random rand = new Random();
             Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
             activeSuns.add(sun);
             add(sun, 1);
         });
         sunProducer.start();
+
+        Timer zombieSpawner = new Timer( (int)((Math.random() * 2) + 1) * 5500 , (ActionEvent e) -> {
+            int lane = (int)(Math.random() * 5);
+            Zombie zombie = new Zombie(this, lane);
+            activeZombies.get(lane).add(zombie);
+            add(zombie, 1);
+        });
+        zombieSpawner.start();
+
+
 
         peaLanes = new ArrayList<>();
         peaLanes.add(new ArrayList<>()); //lane 1
@@ -69,6 +83,13 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         peaLanes.add(new ArrayList<>()); //lane 4
         peaLanes.add(new ArrayList<>()); //lane 5
 
+
+        activeZombies = new ArrayList<>();
+        activeZombies.add(new ArrayList<>()); //lane 1
+        activeZombies.add(new ArrayList<>()); //lane 2
+        activeZombies.add(new ArrayList<>()); //lane 3
+        activeZombies.add(new ArrayList<>()); //lane 4
+        activeZombies.add(new ArrayList<>()); //lane 5
 
 
         colliders = new Collider[45];
@@ -119,6 +140,14 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             activeSuns.get(i).create();
         }
 
+        //produce zombies
+        for (int i = 0; i < activeZombies.size(); i++) {
+            for (Zombie z: activeZombies.get(i)) {
+                z.create();
+            }
+        }
+
+
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -145,11 +174,15 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         peashooterCard.setLocation(185, 8);
         add(peashooterCard, 0);
 
-        //draw peas
+        //draw peas and zombies based on lane
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < peaLanes.get(i).size(); j++) {
                 Pea p = peaLanes.get(i).get(j);
                 p.move();
+            }
+
+            for(Zombie z : activeZombies.get(i)){
+                g.drawImage(zombieWalkingAnim, z.getXCord(), 110 + (i * 115), null);
             }
         }
 
@@ -173,7 +206,6 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         }
 
         for (int i = 0; i < 5; i++) {
-
             for (int j = 0; j < peaLanes.get(i).size(); j++) {
                 Pea pea = peaLanes.get(i).get(j);
                 g.drawImage(peaImage, pea.getPosX(), 130 + (i * 120), null);
@@ -188,6 +220,13 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     public ArrayList<Sun> getActiveSuns() {
         return activeSuns;
+    }
+    public ArrayList<ArrayList<Zombie>> getActiveZombies() {
+        return activeZombies;
+    }
+
+    public Collider[] getColliders() {
+        return colliders;
     }
 
     @Override

@@ -15,6 +15,11 @@ public class Collider extends JPanel implements MouseListener {
         setSize(100, 120);
     }
 
+    public Collider(int h, int w) {
+        setOpaque(false);
+        setSize(h, w);
+    }
+
     public Plant assignedPlant;
 
     public void setPlant(Plant p) {
@@ -22,6 +27,15 @@ public class Collider extends JPanel implements MouseListener {
     }
     public Plant getPlant() {
         return this.assignedPlant;
+    }
+
+    public void removePlant() {
+        assignedPlant.stop();
+        assignedPlant = null;
+    }
+
+    public boolean isInsideCollider(int jx) {
+        return (jx > getLocation().x) && (jx < getLocation().x + 75);
     }
 
     public void setAction(ActionListener listener) {

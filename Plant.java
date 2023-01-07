@@ -1,6 +1,6 @@
 public abstract class Plant {
 
-    private int health = 200;
+    private int health;
 
     private int x;
     private int y;
@@ -8,9 +8,10 @@ public abstract class Plant {
     private GamePanel gp;
 
 
-    public Plant(GamePanel parent, int x, int y) {
+    public Plant(GamePanel parent, int x, int y, int health) {
         this.x = x;
         this.y = y;
+        this.health = health;
         gp = parent;
     }
 
