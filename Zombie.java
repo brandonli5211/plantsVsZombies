@@ -32,13 +32,13 @@ public class Zombie extends JPanel {
         }
         if(!isColliding){
             if (xCord < 10) {
-                gp.remove(this);
-                gp.getActiveZombies().remove(this);
+                JOptionPane.showMessageDialog(gp,"The zombies ate your brain!! ggs");
+                GameScreen.gw.dispose();
             } else {
-                xCord--;
+                xCord-=20;
             }
         }else{
-            plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 2);
+            plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 5);
             if (plantInMyLane.assignedPlant.getHealth() < 0) {
                 plantInMyLane.removePlant();
             }

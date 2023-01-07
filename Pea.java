@@ -18,7 +18,7 @@ public class Pea {
             Zombie z = gp.getActiveZombies().get(myLane).get(i);
             Rectangle zRect = new Rectangle(z.getXCord(), 109 + myLane * 120, 400, 120);
             if (peaRect.intersects(zRect)) {
-                z.setHealth(z.getHealth() - 150);
+                z.setHealth(z.getHealth() - 50);
                 boolean exit = false;
                 gp.getPeaLanes().get(myLane).remove(this);
                 if (z.getHealth() < 0) {

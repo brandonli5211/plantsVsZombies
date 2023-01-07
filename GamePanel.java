@@ -58,7 +58,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         generateTimer.start();
 
         activeSuns = new ArrayList<>();
-        Timer sunProducer = new Timer(((int)(Math.random() * 3) + 1) * 3000, (ActionEvent e) -> {
+        Timer sunProducer = new Timer(((int)(Math.random() * 3) + 1) * 4500, (ActionEvent e) -> {
             Random rand = new Random();
             Sun sun = new Sun(this, rand.nextInt(800) + 100, 0, rand.nextInt(300) + 200);
             activeSuns.add(sun);
@@ -66,7 +66,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         });
         sunProducer.start();
 
-        Timer zombieSpawner = new Timer( (int)((Math.random() * 2) + 1) * 5500 , (ActionEvent e) -> {
+        Timer zombieSpawner = new Timer( (int)((Math.random() * 2) + 1) * 5000 , (ActionEvent e) -> {
             int lane = (int)(Math.random() * 5);
             Zombie zombie = new Zombie(this, lane);
             activeZombies.get(lane).add(zombie);
@@ -182,7 +182,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             }
 
             for(Zombie z : activeZombies.get(i)){
-                g.drawImage(zombieWalkingAnim, z.getXCord(), 110 + (i * 115), null);
+                g.drawImage(zombieWalkingAnim, z.getXCord(), 115 + (i * 120), null);
             }
         }
 

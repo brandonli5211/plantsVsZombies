@@ -38,11 +38,6 @@ public class GameScreen extends JFrame {
 
     static GameScreen gw;
 
-    public static void begin() {
-        gw.dispose();
-        gw = new GameScreen();
-    }
-
     public static void main(String[] args){
 
         try {
