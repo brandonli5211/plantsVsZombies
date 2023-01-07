@@ -21,6 +21,8 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
 
     private final Image sunflowerIdleAnim = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/sunflowerIdle.gif"))).getImage();
 
+    private Image wallnutImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/animations/wallnutIdle.png"))).getImage();
+
     private JLabel sunScoreBoard;
     private ArrayList<Sun> activeSuns;
     private int sunScore;
@@ -129,6 +131,13 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
                 }
             }
 
+            if (currentPlantingBrush == GameScreen.PlantType.Wallnut) {
+                if (getSunScore() >= 50) {
+                    colliders[x + y * 9].setPlant(new Wallnut(GamePanel.this, x, y, 400));
+                    setSunScore(getSunScore() - 50);
+                }
+            }
+
             currentPlantingBrush = GameScreen.PlantType.None;
         }
     }
@@ -153,6 +162,16 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bgImage, 0, 0, null);
+
+        PlantCard wallnutCard;
+        if (this.getSunScore() < 50){
+            wallnutCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/disabledWallnutCard.png"))).getImage());
+        }else{
+            wallnutCard = new PlantCard(new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/cards/wallnutCard.png"))).getImage());
+        }
+        wallnutCard.setAction((ActionEvent e) -> this.setCurrentPlantingBrush(GameScreen.PlantType.Wallnut));
+        wallnutCard.setLocation(255, 8);
+        add(wallnutCard, 0);
 
         PlantCard sunflowerCard;
         if (this.getSunScore() < 50){
@@ -201,6 +220,9 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
                 }
                 if (p instanceof Sunflower) {
                     g.drawImage(sunflowerIdleAnim, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
+                }
+                if(p instanceof Wallnut){
+                    g.drawImage(wallnutImage, 60 + (i % 9) * 100, 129 + (i / 9) * 120, null);
                 }
             }
         }

@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class MyJava extends JFrame{
 	static CardLayout cardsL;
@@ -8,7 +7,7 @@ public class MyJava extends JFrame{
 
 	TitleScreen  titleP;  // object of my customized class MyMenuPanel
 	MainMenu menuP;   // object of my customized class MyGamePanel
-	GameScreen gameP; //
+	GameScreen gw; //
 
 	public MyJava(){    //constructor
 		c=getContentPane();
@@ -17,11 +16,11 @@ public class MyJava extends JFrame{
 
 		titleP = new TitleScreen();
 		menuP = new MainMenu();
-		gameP = new GameScreen();
+		gw = new GameScreen();
 
 		c.add("Title Screen", titleP);
 		c.add("Main Menu", menuP);
-		c.add("Plants VS Zombies", gameP);
+		c.add("Plants VS Zombies", gw);
 	}
 
 	public static void main(String[] args){

@@ -33,7 +33,6 @@ public class Zombie extends JPanel {
         if(!isColliding){
             if (xCord < 10) {
                 JOptionPane.showMessageDialog(gp,"The zombies ate your brain!! ggs");
-                GameScreen.gw.dispose();
             } else {
                 xCord--;
             }

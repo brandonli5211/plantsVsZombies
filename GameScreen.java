@@ -1,23 +1,23 @@
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 
 
-public class GameScreen extends JFrame {
+public class GameScreen extends JLayeredPane {
 
     enum PlantType {
         None,
         Sunflower,
         Peashooter,
+        Wallnut,
     }
-
-    //PlantType activePlantingBrush = PlantType.None;
 
     public GameScreen() {
         setSize(1012, 785);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLayout(null);
 
         JLabel sun = new JLabel();
         sun.setForeground(Color.white);
@@ -28,28 +28,10 @@ public class GameScreen extends JFrame {
 
         GamePanel gp = new GamePanel(sun);
         gp.setLocation(0, 0);
-        getLayeredPane().add(gp, 0);
+        this.add(gp, 0);
 
 
-        getLayeredPane().add(sun, 0);
-        setResizable(false);
-        setVisible(true);
-    }
-
-    static GameScreen gw;
-
-    public static void main(String[] args){
-
-        try {
-            MusicPlayer music = new MusicPlayer();
-            music.resetAudioStream();
-        } catch (Exception ex) {
-            System.out.println("Error with playing sound. (check for correct path)");
-            ex.printStackTrace();
-
-        }
-
-        gw = new GameScreen();
+        add(sun, 0);
     }
 
 }

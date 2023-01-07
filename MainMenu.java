@@ -5,7 +5,7 @@ import javax.swing.*;
 public class MainMenu extends JPanel implements ActionListener{
 
 		  private JButton b1, b2, b3;
-	      private ImageIcon bgImg = new ImageIcon("src/images/titleScreen.png");
+	      private ImageIcon bgImg = new ImageIcon("images/titleScreen.png");
 
 		  
 		  //private static ImageIcon buttonPic = new ImageIcon("src/play.png");
@@ -51,41 +51,6 @@ public class MainMenu extends JPanel implements ActionListener{
 				  System.exit(0);
 			  }	
 		  }
-		  
-		 /*
-		 public void mouseClicked(MouseEvent me){
-			 int mouseX = me.getX();
-			 int mouseY = me.getY();
-			  
-			 int x = mouseX;
-			 int y = mouseY;
-			 repaint();		  
-		  }
 
-		public void mousePressed(MouseEvent e) {
-		}
-		
-		public void mouseReleased(MouseEvent e) {		
-		}
-		
-		public void mouseEntered(MouseEvent e) {		
-		}
-		
-		public void mouseExited(MouseEvent e) {		
-		}
-		
-		public void keyPressed(KeyEvent ke) {
-			ke.getKeyCode();
-			ke.getKeyChar();
-		}
-		public void keyReleased(KeyEvent ke) {}
-		public void keyTyped(KeyEvent ke) {}
-		
-		
-		myTimer = new Timer(120, this);
-		myTimer.start();
-		myTimer.reset();
-		myTimer.stop();
-		*/		
 }
 
