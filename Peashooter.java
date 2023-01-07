@@ -9,12 +9,15 @@ public class Peashooter extends Plant {
 
     public Peashooter(GamePanel parent, int x, int y) {
         super(parent, x, y, 200);
-        shootTimer = new Timer(2300, (ActionEvent e) -> {
-            this.isShooting = true;
-            getGp().getPeaLanes().get(y).add(new Pea(getGp(), y, 103 + this.getX() * 100));
+        shootTimer = new Timer(2250, (ActionEvent e) -> {
+            if(getGp().getActiveZombies().get(y).size() > 0){
+                this.isShooting = true;
+                getGp().getPeaLanes().get(y).add(new Pea(getGp(), y, 103 + this.getX() * 100));
+            }else{
+                this.isShooting = false;
+            }
         });
         shootTimer.start();
-        this.isShooting = false;
     }
 
     public boolean isShooting(){
