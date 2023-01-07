@@ -35,7 +35,7 @@ public class Zombie extends JPanel {
                 JOptionPane.showMessageDialog(gp,"The zombies ate your brain!! ggs");
                 GameScreen.gw.dispose();
             } else {
-                xCord-=20;
+                xCord--;
             }
         }else{
             plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 5);
