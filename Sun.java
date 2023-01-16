@@ -1,20 +1,28 @@
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: Sun Class
+ * Program Description: Create falling sun object and control movement and despawn
+ */
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Objects;
 
 public class Sun extends JPanel implements MouseListener {
 
+	// sun variables
     private GamePanel gp;
     private Image sunImage;
-
     private int myX;
     private int myY;
     private int endY;
+    private int stop = 200;
+    private Timer destruct;
 
-    private int destruct = 200;
-
+    // constructing sun
     public Sun(GamePanel parent, int startX, int startY, int endY) {
         this.gp = parent;
         this.endY = endY;
@@ -23,53 +31,38 @@ public class Sun extends JPanel implements MouseListener {
         myX = startX;
         myY = startY;
         setLocation(myX, myY);
-        sunImage = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("images/sun.png"))).getImage();
+        sunImage = new ImageIcon("images/sun.png").getImage();
         addMouseListener(this);
+        
+        destruct = new Timer (8000, (ActionEvent e) -> {
+            gp.getActiveSuns().remove(this);
+            gp.remove(this);
+        
+        });
+        destruct.start();
     }
 
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(sunImage, 0, 0, null);
     }
 
+    // sun falling
     public void create() {
-        if (myY < endY) {
+        if (myY < endY + 20) {
             myY += 4;
-        } else {
-            destruct--;
-            if (destruct < 0) {
-                gp.remove(this);
-                gp.getActiveSuns().remove(this);
-            }
-        }
-        setLocation(myX, myY);
+        } 
+        setLocation(myX + 20, myY);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {    }
+    public void mousePressed(MouseEvent e) {    }
+    public void mouseEntered(MouseEvent e) {    }
+    public void mouseExited(MouseEvent e) {   }
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
         gp.setSunScore(gp.getSunScore() + 25);
-        gp.remove(this);
         gp.getActiveSuns().remove(this);
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+        gp.remove(this);
     }
 }

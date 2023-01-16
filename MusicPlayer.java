@@ -1,3 +1,10 @@
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: Music Player Class
+ * Program Description: Play music throughout the game
+ */
+
 //code taken from: https://www.geeksforgeeks.org/play-audio-file-using-java/
 import java.io.File;
 import java.io.IOException;

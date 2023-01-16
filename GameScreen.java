@@ -1,22 +1,28 @@
-import javax.sound.sampled.*;
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: Game Screen Class
+ * Program Description: Create labels and background and initalize PlantType
+ */
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Objects;
 
 
 public class GameScreen extends JLayeredPane {
 
     enum PlantType {
         None,
+        Shovel,
+        Minishroom,
         Sunflower,
         Peashooter,
         Wallnut,
+        Repeater,
     }
 
-    public GameScreen() {
+    // gamescreen constructor
+    public GameScreen(MainMenu menu) {
         setSize(1012, 785);
 
         JLabel sun = new JLabel();
@@ -26,10 +32,9 @@ public class GameScreen extends JLayeredPane {
         sun.setSize(60, 20);
 
 
-        GamePanel gp = new GamePanel(sun);
+        GamePanel gp = new GamePanel(sun, menu);
         gp.setLocation(0, 0);
         this.add(gp, 0);
-
 
         add(sun, 0);
     }

@@ -1,14 +1,22 @@
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: Collider Class
+ * Program Description: Colliders for plant grids
+ */
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
 public class Collider extends JPanel implements MouseListener {
 
     private ActionListener listener;
+    public Plant assignedPlant;
 
+    // collider constructors
     public Collider() {
         setOpaque(false);
         addMouseListener(this);
@@ -20,8 +28,7 @@ public class Collider extends JPanel implements MouseListener {
         setSize(h, w);
     }
 
-    public Plant assignedPlant;
-
+    // setters and getters
     public void setPlant(Plant p) {
         assignedPlant = p;
     }
@@ -30,7 +37,6 @@ public class Collider extends JPanel implements MouseListener {
     }
 
     public void removePlant() {
-        assignedPlant.stop();
         assignedPlant = null;
     }
 
@@ -42,30 +48,15 @@ public class Collider extends JPanel implements MouseListener {
         this.listener = listener;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {   }
+    public void mousePressed(MouseEvent e) {   }
+    public void mouseEntered(MouseEvent e) {   }
+    public void mouseExited(MouseEvent e) {  }
 
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
     public void mouseReleased(MouseEvent e) {
         if (listener != null) {
             listener.actionPerformed(new ActionEvent(this, ActionEvent.RESERVED_ID_MAX + 1, ""));
         }
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }

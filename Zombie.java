@@ -1,14 +1,21 @@
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: Zombie Class
+ * Program Description: Blueprint for creating zombie object
+ */
+
 import javax.swing.*;
-import java.awt.*;
-import java.util.Objects;
 
 public class Zombie extends JPanel {
+	// initalizing zombie variables
     private int xCord = 950;
-    private int health = 1000;
+    private int health = 1100;
     private final GamePanel gp;
     private int currLane;
+    private String zombieType = "normal";
 
-
+    // constructor
     public Zombie(GamePanel parent, int lane) {
         this.gp = parent;
 
@@ -17,10 +24,7 @@ public class Zombie extends JPanel {
         currLane = lane;
     }
 
-    public int getX() {
-        return xCord;
-    }
-
+    // zombie movement and attack
     public void create() {
         Collider plantInMyLane = null;
         boolean isColliding = false;
@@ -31,25 +35,17 @@ public class Zombie extends JPanel {
             }
         }
         if(!isColliding){
-            if (xCord < 10) {
-                JOptionPane.showMessageDialog(gp,"The zombies ate your brain!! ggs");
-            } else {
-                xCord-= 0.7;
-            }
-        }else{
+             xCord -= 10;
+        }
+        else{
             plantInMyLane.assignedPlant.setHealth(plantInMyLane.assignedPlant.getHealth() - 3);
             if (plantInMyLane.assignedPlant.getHealth() < 0) {
                 plantInMyLane.removePlant();
             }
         }
-
-
-        if (health == 0) {
-            gp.remove(this);
-            gp.getActiveZombies().remove(this);
-        }
     }
 
+    // getters and setters
     public int getHealth() {
         return health;
     }
@@ -59,4 +55,10 @@ public class Zombie extends JPanel {
     public int getXCord() {
         return xCord;
     }
+	public String getZombieType() {
+		return zombieType;
+	}
+	public void setZombieType(String z) {
+		zombieType = z;
+	}
 }

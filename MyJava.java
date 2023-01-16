@@ -1,3 +1,10 @@
+/*
+ * Authors: Zayaan and Brandon
+ * Date: Jan 17 2023
+ * Program Name: PVZ Main Program
+ * Program Description: Main JFrame and cards layout
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -5,22 +12,23 @@ public class MyJava extends JFrame{
 	static CardLayout cardsL;
 	static Container c;
 
-	TitleScreen  titleP;  // object of my customized class MyMenuPanel
-	MainMenu menuP;   // object of my customized class MyGamePanel
-	GameScreen gw; //
 
 	public MyJava(){    //constructor
 		c=getContentPane();
 		cardsL=new CardLayout();
 		c.setLayout(cardsL);
 
-		titleP = new TitleScreen();
-		menuP = new MainMenu();
-		gw = new GameScreen();
+		TitleScreen titleP = new TitleScreen();
+		MainMenu menuP = new MainMenu();
+		GameOver lose = new GameOver();
+		LevelPassed win = new LevelPassed();
+		Instructions instruct = new Instructions();
 
 		c.add("Title Screen", titleP);
 		c.add("Main Menu", menuP);
-		c.add("Plants VS Zombies", gw);
+		c.add("Game Over", lose);
+		c.add("Level Completed", win);
+		c.add("Instructions", instruct);
 	}
 
 	public static void main(String[] args){
